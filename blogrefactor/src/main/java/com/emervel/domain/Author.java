@@ -1,4 +1,4 @@
-package com.emervel.h2demo.domain;
+package com.emervel.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +18,7 @@ public class Author {
 
     private String firstName;
     private String lastName;
-
+    private String email;
     /**
      * Un post puede tener un solo autor y es el dueño de la aplicacion
      */
@@ -28,9 +28,10 @@ public class Author {
     private Author() {
 
     }
-    public Author(String firstName, String lastName) {
+    public Author(String firstName, String lastName, String email) {
         this.setFirstName(firstName);
         this.setLastName(lastName);
+        this.setEmail(email);
     }
     public Long getId() {
         return id;
@@ -54,5 +55,13 @@ public class Author {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

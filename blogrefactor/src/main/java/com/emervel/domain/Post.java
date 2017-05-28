@@ -1,4 +1,6 @@
-package com.emervel.h2demo.domain;
+package com.emervel.domain;
+
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,8 +13,8 @@ import java.util.Date;
 @Entity
 @Table(name = "POST")
 public class Post {
-    @Id
-    @GeneratedValue
+
+    @Id    @GeneratedValue
     private Long id;
 
     private String title;
@@ -20,8 +22,17 @@ public class Post {
     @Column(columnDefinition = "TEXT")
     private String body;
 
-    private Date postedOn;
+    @Column(columnDefinition = "TEXT")
+    private String teaser;
 
+    private String slug;
+
+    /**
+     * Con createddate ya no sera necesario que hagamos un set. Spring lo rellenar automaticamente cuando
+     * se cree la instancia
+     */
+    @CreatedDate    @Column(columnDefinition = "TIMESTAMP")
+    private Date postedOn;
 
     /**
      * Un post tiene un author pero un autor puede tener varios posts
@@ -31,14 +42,17 @@ public class Post {
 
 
     /**
-     * Se necesita para JPA
+     * Se necesita para JPA y con esta etiqueta evitamos el warning
      */
+    @SuppressWarnings("unused")
     private Post() {
 
     }
+
     public Post(String title) {
         this.setTitle(title);
     }
+
     public Long getId() {
         return id;
     }
@@ -77,6 +91,22 @@ public class Post {
 
     public void setAuthor(Author author) {
         this.author = author;
+    }
+
+    public String getTeaser() {
+        return teaser;
+    }
+
+    public void setTeaser(String teaser) {
+        this.teaser = teaser;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     @Override
